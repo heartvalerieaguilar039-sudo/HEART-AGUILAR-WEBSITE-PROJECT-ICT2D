@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Portfolio</title>
+<style>
+
+/* =====================
+   VIDEO BACKGROUND
+===================== */
+#bg-video{
+  position:fixed;
+  right:0;
+  bottom:0;
+  min-width:100%;
+  min-height:100%;
+  object-fit:cover;
+  z-index:-2;
+}
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.45);
+  z-index:-1;
+}
+
+/* =====================
+   THEME
+===================== */
+:root{
+  --bg:#f4f4ff;
+  --text:#1e1e1e;
+  --card:#ffffff;
+  --accent:#6a5acd;
+}
+
+body.dark{
+  --bg:#121212;
+  --text:#f5f5f5;
+  --card:#1f1f2e;
+  --accent:#8a7dff;
+}
+
+/* =====================
+   BODY
+===================== */
+body{
+  margin:0;
+  font-family:Poppins,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  transition:0.3s;
+  scroll-behavior:smooth; /* ✅ ADDED */
+}
+
+/* =====================
+   HEADER
+===================== */
+header{
+  text-align:center;
+  padding:20px;
+}
+
+/* =====================
+   PROFILE
+===================== */
+.profile-pic{
+  width:150px;
+  height:120px;
+  border-radius:50%;
+  object-fit:cover;
+  border:4px solid var(--accent);
+  box-shadow:0 10px 25px rgba(0,0,0,0.3);
+  transition:0.4s ease;
+  cursor:pointer;
+}
+
+.profile-pic.active{
+  transform:scale(1.15) rotate(3deg); /* ✅ ENHANCED */
+  box-shadow:0 0 25px var(--accent);
+}
+
+/* =====================
+   NAV
+===================== */
+nav{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+nav button{
+  border:none;
+  padding:10px 14px;
+  border-radius:8px;
+  cursor:pointer;
+  background:var(--accent);
+  color:white;
+  transition:0.3s;
+  position:relative; /* ✅ ADDED */
+  overflow:hidden;   /* ripple */
+}
+
+nav button.active{
+  transform:scale(1.1);
+  background:#000;
+}
+
+/* =====================
+   BUTTON HOVER GLOW (ADDED)
+===================== */
+nav button:hover{
+  box-shadow:0 0 15px var(--accent);
+}
+
+/* =====================
+   TOGGLE
+===================== */
+.toggle{
+  position:fixed;
+  top:10px;
+  right:10px;
+  background:var(--accent);
+  color:white;
+  border:none;
+  padding:10px;
+  border-radius:8px;
+  cursor:pointer;
+}
+
+/* =====================
+   SECTIONS (IMPROVED SMOOTHNESS)
+===================== */
+section{
+  position:absolute;
+  left:0;
+  right:0;
+  max-width:800px;
+  margin:20px auto;
+  background:var(--card);
+  padding:20px;
+  border-radius:15px;
+  box-shadow:0 5px 15px rgba(0,0,0,0.1);
+
+  opacity:0;
+  transform:translateY(30px);
+  pointer-events:none;
+
+  transition:0.5s ease;
+}
+
+/* ACTIVE SECTION (SMOOTHER) */
+section.active{
+  opacity:1;
+  transform:translateY(0);
+  pointer-events:auto;
+  position:relative;
+  animation:fadeIn 0.5s ease; /* ✅ ADDED */
+}
+
+@keyframes fadeIn{
+  from{opacity:0; transform:translateY(20px);}
+  to{opacity:1; transform:translateY(0);}
+}
+
+/* =====================
+   CARD HOVER EFFECT (ADDED)
+===================== */
+section:hover{
+  box-shadow:0 10px 25px rgba(0,0,0,0.2);
+}
+
+/* =====================
+   SKILLS
+===================== */
+.skills button{
+  margin:5px;
+  padding:10px;
+  border:none;
+  border-radius:8px;
+  background:var(--accent);
+  color:white;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.skills button:hover{
+  transform:scale(1.05);
+}
+
+#output{
+  margin-top:10px;
+  font-weight:bold;
+}
+
+/* FOOTER */
+footer{
+  text-align:center;
+  padding:20px;
+  opacity:0.7;
+}
+
+/* =====================
+   RIPPLE EFFECT (ADDED JS SUPPORT)
+===================== */
+.ripple{
+  position:absolute;
+  background:rgba(255,255,255,0.6);
+  border-radius:50%;
+  transform:scale(0);
+  animation:ripple 0.6s linear;
+}
+
+@keyframes ripple{
+  to{
+    transform:scale(4);
+    opacity:0;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<video autoplay muted loop id="bg-video">
+  <source src="heart.video.mp4" type="video/mp4">
+</video>
+
+<button class="toggle" onclick="toggleMode()">🌙 Mode</button>
+
+<header>
+  <img src="heart photo.com.jpeg" class="profile-pic" id="profile">
+  <h1>My Portfolio Website</h1>
+  <p>Heart Valerie Aguilar</p>
+</header>
+
+<nav>
+  <button onclick="showPage('about', this)" class="active">About</button>
+  <button onclick="showPage('skills', this)">Skills</button>
+  <button onclick="showPage('education', this)">Education</button>
+  <button onclick="showPage('hobbies', this)">Hobbies</button>
+  <button onclick="showPage('contact', this)">Contact</button>
+</nav>
+
+<section id="about" class="active">
+  <h2>About Me</h2>
+  <p>Hello! I am Heart Valerie Aguilar, I am a second-year college student currently studying at Colegio De la Ciudad de Zamboanga, taking the BTLED-ICT program. I am still learning about computers and coding, and although I sometimes find it challenging, I am very interested in improving my skills. My goal is to become more knowledgeable in ICT and create meaningful projects in the future.</p>
+</section>
+
+<section id="skills">
+  <h2>Skills</h2>
+  <div class="skills">
+    <button onclick="showSkill('HTML')">HTML</button>
+    <button onclick="showSkill('CSS')">CSS</button>
+    <button onclick="showSkill('JavaScript')">Layout and Editing</button>
+    <button onclick="showSkill('Communication')">Communication Skill</button>
+    <button onclick="showSkill('Problem Solving')">Problem Solving</button>
+  </div>
+  <p id="output"></p>
+</section>
+
+<section id="education">
+  <h2>Education</h2>
+  <p> Colegio De La Ciudad De Zamboanga (CCZ) - BTLED ICT (2nd Year College)</p>
+</section>
+
+<section id="hobbies">
+  <h2>Hobbies</h2>
+  <p>Volleyball</p>
+  <p>Listening Music</p>
+  <p>Watching Movie</p>
+</section>
+
+<section id="contact">
+  <h2>Contact</h2>
+  <p>📧 Email: heartvalerieaguilar039@gmail.com</p>
+  <p>📞 Phone: 09915122910</p>
+  <p>📘 Fb: Hearty Aguilar</p>
+  <p>📍 Location: Cawit Zone 5B Zamboanga City</p>
+</section>
+<footer>© 2026 Heart Valerie Aguilar | All Rights Reserved</footer>
+
+<script>
+
+/* PAGE SWITCH (UNCHANGED BUT SMOOTHER FEEL) */
+function showPage(id, btn){
+
+  const sections = document.querySelectorAll("section");
+  const buttons = document.querySelectorAll("nav button");
+
+  sections.forEach(s => s.classList.remove("active"));
+  buttons.forEach(b => b.classList.remove("active"));
+
+  setTimeout(() => {
+    document.getElementById(id).classList.add("active");
+  }, 50);
+
+  btn.classList.add("active");
+
+  /* ripple effect */
+  const ripple = document.createElement("span");
+  ripple.classList.add("ripple");
+  btn.appendChild(ripple);
+
+  setTimeout(() => ripple.remove(), 600);
+}
+
+/* DARK MODE */
+function toggleMode(){
+  document.body.classList.toggle("dark");
+
+  localStorage.setItem("mode",
+    document.body.classList.contains("dark") ? "dark" : "light"
+  );
+}
+
+window.onload = function(){
+  if(localStorage.getItem("mode")==="dark"){
+    document.body.classList.add("dark");
+  }
+};
+
+/* SKILLS */
+function showSkill(skill){
+  document.getElementById("output").innerText =
+  "You selected: " + skill;
+}
+
+/* PROFILE INTERACTION (ENHANCED ONLY) */
+document.getElementById("profile").addEventListener("click", function(){
+  this.classList.toggle("active");
+});
+
+</script>
+
+</body>
+</html>
